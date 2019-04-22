@@ -15,7 +15,7 @@ class Product extends Component {
                         <h4>Rp. {this.props.harga}</h4>
                     </div>
                     <div className="card-action">
-                        <a href="#">This is a link</a>
+                        <a onClick={this.props.deleteCard} id={this.props.id} href="#">Hapus</a>
                     </div>
                 </div>
             </div>

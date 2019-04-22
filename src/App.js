@@ -7,26 +7,46 @@ class App extends Component {
     constructor(){
         super();
         this.state = {
-            products : []
+            products: [
+            {
+                judul: 'Lorem Ipsum',
+                harga: '100.0000',
+                id: 100
+
+            },
+            {
+                judul: 'Lorem Ipsum',
+                harga: '50.0000',
+                id: 50
+
+            }],
+            deleted_clicked : 0
         };
     }
 
-    componentDidMount(){
-        let api_url = 'https://my-json-server.typicode.com/techtona/product_api2/products';
-        fetch(api_url)
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-            this.setState({products : data});
-          })
-          .catch(function (e) {
-            console.log(e);
+    // componentDidMount(){
+    //     let api_url = 'https://my-json-server.typicode.com/techtona/product_api2/products';
+    //     fetch(api_url)
+    //       .then(response => response.json())
+    //       .then(data => {
+    //         console.log(data);
+    //         this.setState({products : data});
+    //       })
+    //       .catch(function (e) {
+    //         console.log(e);
             
-          })
-    }
+    //       })
+    // }
 
-    hapusBaris = (key) => {
-        this.state.products.splice(key,1);
+    // hapusBaris = (key) => {
+    //     this.state.products.splice(key,1);
+    //     this.setState({products : this.state.products});
+    // }
+
+    hapusCard = (key) => {
+        this.state.deleted_clicked = !this.state.deleted_clicked;
+        this.setState({deleted_clicked : this.state.deleted_clicked});
+        this.state.products.splice(key.target.id,1);
         this.setState({products : this.state.products});
     }
 
@@ -43,6 +63,9 @@ class App extends Component {
         this.refs.form.reset();
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+    }
 
     render() {
         return (
@@ -55,7 +78,7 @@ class App extends Component {
                         <button type="submit" className="btn waves-effect">Simpan</button>
                     </form>
                 </div>
-                <table>
+                {/* <table>
                     <thead>
                         <tr>
                             <th>Nama Produk</th>
@@ -76,7 +99,12 @@ class App extends Component {
                             )
                         })}
                     </tbody>
-                </table>
+                </table> */}
+                {this.state.products.map((data, key) => {
+                        return (
+                            <Product deleteCard={this.hapusCard} harga={data.harga} judul={data.judul} key={key} id={key}/>
+                        )
+                    })}
             </div>
         );
     }
