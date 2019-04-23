@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Product from './Product';
 import * as serviceWorker from './serviceWorker';
 
 // const element = <h1>Hello world on Variable</h1>;

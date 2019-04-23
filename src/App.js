@@ -1,113 +1,47 @@
-import React, {Component} from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
-import Product from "./Product";
+import './bootstrap.css';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+
+const MyMapComponent = withScriptjs(withGoogleMap((props) =>
+  <GoogleMap
+    defaultZoom={8}
+    defaultCenter={{ lat: -7.7742906, lng: 110.374724 }}
+  >
+    {props.isMarkerShown && <Marker position={{ lat: -7.7742906, lng: 110.374724 }} />}
+  </GoogleMap>
+))
+
 
 class App extends Component {
-    constructor(){
-        super();
-        this.state = {
-            products: [
-            {
-                judul: 'Lorem Ipsum',
-                harga: '100.0000',
-                id: 100
+  
+  render() {
+    return (
+      <div>
+        <div className="text-center">
+            <br></br>
+            <h1>Google Maps</h1>
 
-            },
-            {
-                judul: 'Lorem Ipsum',
-                harga: '50.0000',
-                id: 50
-
-            }],
-            deleted_clicked : 0
-        };
-    }
-
-    // componentDidMount(){
-    //     let api_url = 'https://my-json-server.typicode.com/techtona/product_api2/products';
-    //     fetch(api_url)
-    //       .then(response => response.json())
-    //       .then(data => {
-    //         console.log(data);
-    //         this.setState({products : data});
-    //       })
-    //       .catch(function (e) {
-    //         console.log(e);
-            
-    //       })
-    // }
-
-    // hapusBaris = (key) => {
-    //     this.state.products.splice(key,1);
-    //     this.setState({products : this.state.products});
-    // }
-
-    hapusCard = (key) => {
-        this.state.deleted_clicked = !this.state.deleted_clicked;
-        this.setState({deleted_clicked : this.state.deleted_clicked});
-        this.state.products.splice(key.target.id,1);
-        this.setState({products : this.state.products});
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-
-        let judul = this.refs.nama.value;
-        let harga = this.refs.harga.value;
-        let id = this.refs.id.value;
-
-        // console.log(nama,harga,id);
-        this.state.products.push({id,judul,harga});
-        this.setState({mahasiswa: this.state.mahasiswa});
-        this.refs.form.reset();
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
-    }
-
-    render() {
-        return (
+            <br></br><br></br>
+        </div>
+        <div className="container">
             <div className="row">
-                <div className="col l4">
-                    <form ref="form" onSubmit={this.handleSubmit}>
-                        <input type="text" ref="id" placeholder="ID Produk"/>
-                        <input type="text" ref="nama" placeholder="Nama Produk"/>
-                        <input type="text" ref="harga" placeholder="Harga"/>
-                        <button type="submit" className="btn waves-effect">Simpan</button>
-                    </form>
+            <div className="col-12">
+                <div>
+                <MyMapComponent
+                isMarkerShown 
+                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV9sv1TDNwOGQHfsrmOL_0DWTCA-M6Dgw&v=3.explibraries=geometry,drawing,places"
+                loadingElement={<div style={{ height: `100%` }} />}
+                containerElement={<div style={{ height: `500px` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
+                />
                 </div>
-                {/* <table>
-                    <thead>
-                        <tr>
-                            <th>Nama Produk</th>
-                            <th>Harga</th>
-                            <th>Pilihan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.products.map((data,key) => {
-                            return (
-                                <tr key={data.id}>
-                                    <td>{data.judul}</td>
-                                    <td>{data.harga}</td>
-                                    <td>
-                                        <button onClick={()=>this.hapusBaris(key)} className="waves-effect waves-teal btn-small red">Hapus</button>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table> */}
-                {this.state.products.map((data, key) => {
-                        return (
-                            <Product deleteCard={this.hapusCard} harga={data.harga} judul={data.judul} key={key} id={key}/>
-                        )
-                    })}
             </div>
-        );
-    }
+            </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
