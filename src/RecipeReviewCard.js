@@ -44,11 +44,23 @@ const styles = theme => ({
 });
 
 class RecipeReviewCard extends React.Component {
-  state = { expanded: false };
+  state = { 
+    expanded: false,
+    favorite: 'default'  
+  };
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
+
+  handleFavorite = () => {
+    if (this.state.favorite === 'default'){
+      this.state.favorite = 'secondary';
+    }else{
+      this.state.favorite = 'default';
+    }
+    this.setState({favorite : this.state.favorite})
+  }
 
   render() {
     const { classes } = this.props;
@@ -66,7 +78,7 @@ class RecipeReviewCard extends React.Component {
               <MoreVertIcon />
             </IconButton>
           }
-          title="Shrimp and Chorizo Paella"
+          title="Hotel"
           subheader="September 14, 2016"
         />
         <CardMedia
@@ -81,8 +93,8 @@ class RecipeReviewCard extends React.Component {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
+          <IconButton onClick={this.handleFavorite} aria-label="Add to favorites">
+            <FavoriteIcon color={this.state.favorite}/>
           </IconButton>
           <IconButton aria-label="Share">
             <ShareIcon />
