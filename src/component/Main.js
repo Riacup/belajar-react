@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Switch, Route} from 'react-router-dom';
 
 import Profile from './Profile';
-import Contact from './Contact';
+import Kontak from './Kontak';
+import Home from './Home';
 import Portofolio from './Portofolio';
 
 
 
 class Main extends Component {
-
-    render(){
-        return(
+    render() {
+        return (
             <Switch>
-                <Route exact path="/" component={Main}/>
-                <Route exact path="/main" component={Main}/>
-                <Route path="/contact" component={Contact}/>
+                <Route exact path="/" component={Home}/>
+                <Route path="/home" component={Home}/>
+                <Route path="/kontak" component={Kontak}/>
                 <Route path="/profile" component={Profile}/>
                 <Route path="/portofolio" component={Portofolio}/>
-                
             </Switch>
         );
     }
